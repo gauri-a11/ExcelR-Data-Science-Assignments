@@ -1,0 +1,187 @@
+ARIMA — AutoRegressive Integrated Moving Average
+1. What is ARIMA?
+ARIMA is a popular time series forecasting model that:
+
+Uses past values (AR part)
+
+Removes trend (I part)
+
+Uses past forecast errors (MA part)
+
+It’s defined by three parameters:
+
+𝐴
+𝑅
+𝐼
+𝑀
+𝐴
+(
+𝑝
+,
+𝑑
+,
+𝑞
+)
+ARIMA(p,d,q)
+p = number of lag observations (AutoRegressive order)
+
+d = number of times the series is differenced (Integrated order)
+
+q = number of lagged forecast errors (Moving Average order)
+
+2. The Parameters Explained
+p — AutoRegressive (AR) term
+How many past values to use in predicting the current value.
+
+Example: if p = 2, today’s forecast uses the last 2 days’ values.
+
+Comes from PACF plot (Partial AutoCorrelation Function).
+
+d — Integrated (I) term
+Number of differencing steps needed to make the series stationary.
+
+Stationary = constant mean & variance, no trend.
+
+Removes steady upward/downward drift.
+
+Determined using ADF test or by checking ACF plots.
+
+Most common values: 0, 1, or 2.
+
+Example:
+
+java
+Copy
+Edit
+Original: 100, 120, 140, 160  → Trend present
+Diff (d=1): 20, 20, 20        → Stationary
+q — Moving Average (MA) term
+How many past forecast errors to use in predicting the current value.
+
+Example: if q = 1, we adjust today’s forecast based on yesterday’s error.
+
+Comes from ACF plot (AutoCorrelation Function).
+
+3. The ARIMA Process
+Check for stationarity
+
+Plot data, run ADF test.
+
+If non-stationary → increase d.
+
+Choose p and q
+
+Look at ACF and PACF plots:
+
+PACF cut-off → p
+
+ACF cut-off → q
+
+Fit the ARIMA model
+
+python
+Copy
+Edit
+from statsmodels.tsa.arima.model import ARIMA
+model = ARIMA(data, order=(p, d, q))
+results = model.fit()
+print(results.summary())
+Forecast
+
+python
+Copy
+Edit
+forecast = results.forecast(steps=5)
+4. Manual Example (ARIMA(1, 1, 1))
+Dataset: [5, 7, 9, 10, 12]
+
+Differencing (d=1):
+
+Copy
+Edit
+7-5=2, 9-7=2, 10-9=1, 12-10=2
+→ [2, 2, 1, 2] (stationary now)
+AR(1) part (p=1):
+
+𝑦
+′
+^
+𝑡
+=
+𝜙
+1
+𝑦
+𝑡
+−
+1
+′
+y 
+′
+ 
+^
+​
+  
+t
+​
+ =ϕ 
+1
+​
+ y 
+t−1
+′
+​
+ 
+If φ₁ = 0.5 and last diff = 2 → predicted diff = 1.0
+
+MA(1) part (q=1):
+
+
+​𝑦′^𝑡=0.5 * 2 + 0.4 * 𝑒𝑟𝑟𝑜𝑟(𝑡−1)
+Adjusts forecast based on last error.
+
+Convert back:
+Add predicted difference to last original value.
+
+5. Choosing d
+Depends on stationarity.
+
+Use ADF test:
+
+python
+Copy
+Edit
+from statsmodels.tsa.stattools import adfuller
+result = adfuller(data)
+print('ADF Statistic:', result[0])
+print('p-value:', result[1])
+If p-value < 0.05 → Stationary → d=0
+
+Else → increase d until stationary.
+
+6. ARIMA vs SARIMA
+ARIMA → handles trend.
+
+SARIMA → handles trend + seasonality.
+
+SARIMA adds seasonal parameters (P, D, Q, m).
+
+7. Auto-Selection with pmdarima
+python
+Copy
+Edit
+from pmdarima import auto_arima
+model = auto_arima(data, seasonal=False, trace=True)
+print(model.summary())
+Automatically tests combinations of p, d, q.
+
+✅ Key Takeaways:
+
+p → past values
+
+d → remove trend
+
+q → past forecast errors
+
+ARIMA works only if data is stationary → choose d based on ADF/KPSS tests.
+
+Use SARIMA if seasonality exists.
