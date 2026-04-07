@@ -38,7 +38,8 @@ Each folder contains:
 
 Assignment notebook (.ipynb)
 Dataset (if applicable)
-Assignment question (.docx)
+Assignment question (.docx) 
+
 Objective 🎯
 The objective of these assignments is to gain practical experience in data preprocessing, exploratory data analysis, statistical techniques, machine learning algorithms, and model evaluation.
 
