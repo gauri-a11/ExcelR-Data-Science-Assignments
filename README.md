@@ -40,7 +40,7 @@ Assignment notebook (.ipynb)
 Dataset (if applicable)
 Assignment question (.docx) 
 
-Objective 🎯
+Objective 🎯 
 The objective of these assignments is to gain practical experience in data preprocessing, exploratory data analysis, statistical techniques, machine learning algorithms, and model evaluation.
 
 The objective of these assignments is to gain practical experience in data preprocessing, exploratory data analysis, statistical techniques, machine learning algorithms, and model evaluation.
