@@ -8,7 +8,8 @@ Basic Statistics – 1 & 2
 Exploratory Data Analysis (EDA1, EDA2)
 Hypothesis Testing
 Multiple Linear Regression (MLR)
-Logistic Regression
+Logistic Regression 
+Titatic Survival Prediction Application URL : https://titanic-survival-prediction-app2056.streamlit.app/
 K-Nearest Neighbors (KNN)
 Decision Tree
 Random Forest
