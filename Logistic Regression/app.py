@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 # Load model
-with open('model.pkl', 'rb') as f:
+with open('Logistic Regression/model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 st.set_page_config(page_title="Titanic Survival Predictor", layout="centered")
